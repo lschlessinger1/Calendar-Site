@@ -1,9 +1,9 @@
 <?php
 // Content of database.php
 $db_host     = 'localhost';
-$db_username = 'wustl_inst';
-$db_password = 'wustl_pass';
-$db_name     = 'calendar_website';
+$db_username = '[INSERT_USERNAME]';
+$db_password = '[INSERT_PASSWORD]';
+$db_name     = '[INSERT_DB_NAME]';
 $mysqli      = new mysqli($db_host, $db_username, $db_password, $db_name);
 
 if ($mysqli->connect_errno) {
