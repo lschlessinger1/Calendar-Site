@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<head>
+   <!--[if lt IE 9]>
+   <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+   <![endif]-->
+   <meta charset="utf-8"/>
+   <title>Calendar</title>
+   <link rel="stylesheet" href="css/calendar.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+   <script src="js/calendar.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="js/calendar.js"></script>
+</head>
+<body>
+   <div id="main">
+      <header id="content-header">
+         <h1>Calendar</h1>
+      </header>
+      <nav>
+         <ol>
+            <li id="user-welcome-message"></li>
+            <li><button id="calendar-nav-button">Show Calendar</button></li>
+            <li class="show-anonymous-user"><button class="login-nav-btn" >Log In</button></li>
+            <li class="show-anonymous-user"><button class="register-nav-btn" >Register</button></li>
+            <li id="create-event-item"><button id="create-event-nav-btn">Create Event</button></li>
+            <li id="logout-item"><button id="logout-nav-button">Log Out</button></li>
+         </ol>
+      </nav>
+      <div id="error-div"></div>
+      <div id="calendar-controls">
+         <button id="today_btn">Today</button>
+         <button id="prev_month_btn">&larr;</button>
+         <button id="next_month_btn"> &rarr;</button>
+         <span id="current-month"></span>&nbsp;<span id="current-year"></span>
+      </div>
+      <br>
+      <div id="user-calendars">
+
+          <h4>My calendars</h4>
+          <ul id="user-calendar-list">
+          </ul>
+          <button id="show-create-cal-btn">Create calendar</button>
+      </div>
+      <div id="calendar">
+         <div class="grid" id="calendar-header">
+            <div class="grid-header"><span class="day-header">Sun</span></div>
+            <div class="grid-header"><span class="day-header">Mon</span></div>
+            <div class="grid-header"><span class="day-header">Tue</span></div>
+            <div class="grid-header"><span class="day-header">Wed</span></div>
+            <div class="grid-header"><span class="day-header">Thu</span></div>
+            <div class="grid-header"><span class="day-header">Fri</span></div>
+            <div class="grid-header"><span class="day-header">Sat</span></div>
+         </div>
+         <div class="grid" id="calendar-body"></div>
+      </div>
+      <!--  Log In Form -->
+      <div id="login-form">
+         <header>
+            <h2>Log In</h2>
+         </header>
+         <form class="login-form">
+            <p>
+               <label for="login-username">Username:</label><br>
+               <input type="text" name="username" id="login-username" required/>
+            </p>
+            <p>
+               <label for="login-password">Password:</label><br>
+               <input type="password" name="password" minlength="5" id="login-password" required />
+            </p>
+            <p>
+               <input class="login-form-btn" type="button" value="Log in" />
+            </p>
+         </form>
+      </div>
+      <!--  Registration Form -->
+      <div id="register-form">
+         <header>
+            <h2>Register</h2>
+         </header>
+         <form class="register-form">
+            <p>
+               <label for="registration-username">Username:</label><br>
+               <input type="text" name="username" id="registration-username" required />
+            </p>
+            <p>
+               <label for="registration-password">Password:</label><br>
+               <input type="password" name="password" minlength="5" id="registration-password" required />
+            </p>
+            <p>
+               <input class="register-form-btn" type="button" value="Register" />
+            </p>
+         </form>
+      </div>
+
+      <!--  Create Event Form -->
+      <div id="create-event-form">
+         <header>
+            <h2>Create Event</h2>
+         </header>
+         <form class="create-event-form">
+            <p>
+               <label for="create-event-calendar">Calendar:</label><br>
+               <select id="create-event-calendar" name="calendar">
+                </select>
+            </p>
+            <p>
+               <label for="title">Title:</label><br>
+               <input type="text" name="title" id="title" required />
+            </p>
+            <p>
+               <label for="date">Date:</label><br>
+               <input type="date" name="date" id="date" required />
+            </p>
+            <p>
+               <label for="start_time">Time:</label><br>
+               <input type="time" name="start_time" id="start_time" required />
+               to
+               <input type="time" name="finish_time" id="finish_time" required />
+            </p>
+            <p>
+               <label for="color">Color:</label><br>
+               <input type="color" name="color" id="color" list="colors" value="#5484ED"  />
+              <datalist id="colors">
+                <option value="#5484ED">
+                <option value="#A4BDFC">
+                <option value="#46D6DB">
+                <option value="#7AE7BF">
+                <option value="#51B749">
+                <option value="#FBD75B">
+                <option value="#FFB878">
+                <option value="#FF887C">
+                <option value="#DC2127">
+                <option value="#DBADFF">
+                <option value="#E1E1E1">
+              </datalist>
+            </p>
+            <p>
+               <input id="create-event-btn" type="button" value="Create Event" />
+            </p>
+         </form>
+      </div>
+
+      <!--  Edit Event Form -->
+      <div id="edit-event-form">
+         <header>
+            <h2>Edit Event</h2>
+         </header>
+         <form class="edit-event-form">
+            <p>
+               <label for="update-event-calendar">Calendar:</label><br>
+               <select id="update-event-calendar" name="calendar">
+                </select>
+            </p>
+            <p>
+               <label for="edit-title">Title:</label><br>
+               <input type="text" name="title" id="edit-title" required />
+            </p>
+            <p>
+               <label for="edit-date">Date:</label><br>
+               <input type="date" name="date" id="edit-date" required />
+            </p>
+            <p>
+               <label for="edit-start_time">Time:</label><br>
+               <input type="time" name="start_time" id="edit-start_time" required />
+               to
+               <input type="time" name="finish_time" id="edit-finish_time" required />
+            </p>
+            <p>
+               <label for="edit-color">Color:</label><br>
+               <input type="color" name="color" id="edit-color" list="edit-colors" value="#5484ED"  />
+              <datalist id="edit-colors">
+                <option value="#5484ED">
+                <option value="#A4BDFC">
+                <option value="#46D6DB">
+                <option value="#7AE7BF">
+                <option value="#51B749">
+                <option value="#FBD75B">
+                <option value="#FFB878">
+                <option value="#FF887C">
+                <option value="#DC2127">
+                <option value="#DBADFF">
+                <option value="#E1E1E1">
+              </datalist>
+            </p>
+            <p>
+               <input id="edit-event-btn" type="button" value="Update Event" />
+            </p>
+            <input type="hidden" name="event_id" id="edit-event-id"/>
+         </form>
+      </div>
+
+      <!--  Create Calendar Form -->
+      <div id="create-calendar-form">
+         <header>
+            <h2>Create Calendar</h2>
+         </header>
+         <form class="create-calendar-form">
+            <p>
+               <label for="name">Name:</label><br>
+               <input type="text" name="name" id="name" required />
+            </p>
+            <p>
+               <input id="create-calendar-btn" type="button" value="Create Calendar" />
+            </p>
+         </form>
+      </div>
+
+      <!--  Edit Calendar Form -->
+      <div id="edit-calendar-form">
+         <header>
+            <h2>Edit Calendar</h2>
+         </header>
+         <form class="edit-calendar-form">
+            <p>
+               <label for="name">Name:</label><br>
+               <input type="text" name="name" id="edit-name" required />
+            </p>
+            <p>
+               <input id="edit-calendar-btn" type="button" value="Update Calendar" />
+            </p>
+            <input type="hidden" name="calendar_id" id="edit-calendar-id"/>
+         </form>
+      </div>
+
+      <footer>
+         <p>Louis Schlessinger</p>
+      </footer>
+   </div>
+</body>
+</html>
